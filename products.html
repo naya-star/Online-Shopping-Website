@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Products - Karibu Shopping</title>
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+    <div id="cart-notification" style="display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; z-index: 1000;">
+    Added to cart!
+</div>
+
+<div id="cart-container" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border: 1px solid #ccc; padding: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 1001;">
+    <h3>Your Cart</h3>
+    <ul id="cart-items">
+    </ul>
+    <button id="close-cart-btn">Close Cart</button>
+</div>
+    <header>
+        <div class="logo">
+            <h1><a href="index.html">Karibu Shopping</a></h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <button id="open-cart-button" style="position: fixed; top: 20px; right: 20px; padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Open Cart</button>
+    </header>
+
+    <section class="category-selector">
+        <h2>Explore Our Products</h2>
+        <label for="categorySelect">Choose a Category:</label>
+        <select id="categorySelect" onchange="filterProducts(this.value)">
+            <option value="all" selected>All Categories</option>
+            <option value="electronics">Electronics</option>
+            <option value="fashion-men">Fashion - Men</option>
+            <option value="fashion-women">Fashion - Women</option>
+            <option value="fashion-baby">Fashion - Baby</option>
+            <option value="beauty">Beauty Products</option>
+            <option value="shoes">Shoes</option>
+            <option value="baby-products">Baby Products</option>
+            <option value="jewellery">Jewellery</option>
+        </select>
+    </section>
+
+    <section class="product-list">
+        <div class="product-item" data-category="electronics">
+            <img src="assets/images/phone.webp" alt="Smartphone XYZ">
+            <h3>Smartphone XYZ</h3>
+            <p>KES 49,999</p>
+            <button class="add-to-cart-btn" data-product-id="smartphone-xyz-123" data-product-name="Smartphone XYZ">Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="electronics">
+            <img src="assets/images/laptop.webp" alt="Laptop ABC">
+            <h3>Laptop ABC</h3>
+            <p>KES 79,999</p>
+            <button class="add-to-cart-btn" data-product-id="laptop-abc-456" data-product-name="Laptop ABC">Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="electronics">
+            <img src="assets/images/microwave.jpg" alt="Microwave">
+            <h3>Microwave</h3>
+            <p>KES 8,500</p>
+            <button class="add-to-cart-btn" data-product-id="microwave-789" data-product-name="Microwave">Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="electronics">
+            <img src="assets/images/speakers.jpg" alt="Speakers">
+            <h3>Speakers</h3>
+            <p>KES 4,500</p>
+            <button class="add-to-cart-btn" data-product-id="speakers-012" data-product-name="Speakers">Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="fashion-men">
+            <img src="assets/images/mensshirt.webp" alt="Stylish Shirt">
+            <h3>Stylish Shirt</h3>
+            <p>KES 2,500</p>
+            <button class="add-to-cart-btn" data-product-id="shirt-men-345" data-product-name="Stylish Shirt">Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="fashion-men">
+            <img src="assets/images/mensjeans.jpg" alt="Men's Jeans">
+            <h3>Men's Jeans</h3>
+            <p>KES 3,500</p>
+            <button class="add-to-cart-btn" data-product-id="jeans-men-678" data-product-name="Men's Jeans">Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="fashion-women">
+            <img src="assets/images/floraldresses.jpeg" alt="Elegant Dresses">
+            <h3>Elegant Dresses</h3>
+            <p>KES 5,500</p>
+            <button class="add-to-cart-btn" data-product-id="elegant-dress-1" data-product-name="Elegant Dresses">Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="fashion-women">
+            <img src="assets/images/gown.jpg" alt="Women's Dress">
+            <h3>Women's Dress</h3>
+            <p>KES 4,700</p>
+            <button class="add-to-cart-btn" data-product-id="women-dress-2" data-product-name="Women's Dress">Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="fashion-baby">
+            <img src="assets/images/babyclothes.jpg" alt="Cute Baby Dress">
+            <h3>Cute Baby Dress</h3>
+            <p>KES 2,300</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="beauty">
+            <img src="assets/images/lipsticks.webp" alt="Luxury Lipstick">
+            <h3>Luxury Lipstick</h3>
+            <p>KES 800</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="beauty">
+            <img src="assets/images/lotion.jpg" alt="Body Lotion">
+            <h3>Body Lotion</h3>
+            <p>KES 950</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="shoes">
+            <img src="assets/images/sneakers.webp" alt="Cool Sneakers">
+            <h3>Cool Sneakers</h3>
+            <p>KES 3,500</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="shoes">
+            <img src="assets/images/heels.webp" alt="Elegant Heels">
+            <h3>Elegant Heels</h3>
+            <p>KES 4,200</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="baby-products">
+            <img src="assets/images/babyproducts.jpg" alt="Baby Items">
+            <h3>Baby Items</h3>
+            <p>KES 1,200</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="baby-products">
+            <img src="assets/images/babyproduct.jpg" alt="Baby Toy">
+            <h3>Baby Toy</h3>
+            <p>KES 950</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="jewellery">
+            <img src="assets/images/necklaces.jpg" alt="Necklace">
+            <h3>Necklace</h3>
+            <p>KES 6,000</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product-item" data-category="jewellery">
+            <img src="assets/images/rings.jpg" alt="Rings">
+            <h3>Rings</h3>
+            <p>KES 3,500</p>
+            <button class="add-to-cart-btn" data-product-id="rings-7" data-product-name="Rings">Add to Cart</button>
+        </div>
+    </section>
+
+    <script src="Javascript/main.js"></script>
+</body>
+</html>
