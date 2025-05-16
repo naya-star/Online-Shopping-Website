@@ -29,10 +29,42 @@ header {
     color: white;
     padding: 1rem 0;
     display: flex;
-    flex-direction: column; /* Stack logo, nav, and flash sale */
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
+}
+/* Style the open cart button within the header */
+#open-cart-button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    z-index: 100; /* Keep a high z-index if needed for stacking */
+    position: static;
+    top: auto;
+    margin-right: 5px; /* Add some space from other header elements */
+    order: 2; /* Place it visually in the middle */
+}
+
+#open-cart-button:hover {
+    opacity: 0.8; /* Keep the hover effect */
+}
+#close-cart-btn {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    margin-top: 15px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+#close-cart-btn:hover {
+    opacity: 0.8;
 }
 
 .logo h1 {
@@ -48,7 +80,8 @@ nav ul {
     padding: 0;
     margin: 0;
     display: flex;
-    margin-top: 10px; /* Add some space below the logo */
+    margin-top: 10px;
+    gap: 1rem;
 }
 
 nav ul li {
@@ -70,7 +103,7 @@ nav ul li a:hover {
     text-decoration: none;
 }
 
-/* Flash Sale in Header - Full-Width Fading Slideshow */
+/* Flash Sale in Header */
 .header-flash-sale {
     background-color:#f0f0f0; /* Fallback background color */
     color: #333;
@@ -80,9 +113,9 @@ nav ul li a:hover {
     text-align: center;
     width: 100%;
     box-sizing: border-box;
-    position: relative; /* Needed for absolute positioning of slideshow container */
-    overflow: hidden; /* Hide any content that goes beyond the container */
-    min-height: 200px; /* Adjust as needed to accommodate text */
+    position: relative; 
+    overflow: hidden; 
+    min-height: 200px; 
 }
 
 .header-flash-sale .slideshow-container {
@@ -240,8 +273,7 @@ nav ul li a:hover {
 /* New Arrivals Section */
 .new-arrivals .product-item {
     flex: 0 0 auto;
-    width: 300px; /* Adjust as needed for the desired width */
-    /* Remove fixed height if you had it */
+    width: 300px; 
     margin-right: 20px;
     border-radius: 8px;
     padding: 15px;
@@ -250,7 +282,7 @@ nav ul li a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative; /* Keep this for potential child absolute positioning if needed later */
+    position: relative;
 }
 
 .new-arrivals h3 {
@@ -264,7 +296,7 @@ nav ul li a:hover {
 
 .new-arrivals .product-item img {
     width: 200px;
-    height: 200px; /* Adjust as needed */
+    height: 200px; 
     border-radius: 5px;
     margin-bottom: 10px;
     object-fit: contain; /* Ensure images fill the allocated space */
@@ -299,51 +331,31 @@ nav ul li a:hover {
     background-color: #0056b3;
 }
 .product-details {
-    display: none; /* Initially hide the details */
-    /* Remove position: absolute; */
-    /* top: 100%; Remove top positioning */
+    display: none;
+    position: absolute; 
+    top: 100%;        
     left: 0;
     width: 100%;
-    background-color: #f9f9f9; /* Example background */
-    border: 1px solid #eee; /* Example border */
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
     padding: 15px;
     border-radius: 0 0 8px 8px; /* Match product item border-radius */
     z-index: 10; /* Keep z-index if needed for stacking context within the item */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
-    text-align: left; /* Adjust text alignment within details if needed */
-    margin-top: 10px; /* Add some space between the button and details */
-}
-.product-details h5 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #333;
+    text-align: left;
 }
 
 .product-details p {
     color: #666;
     margin-bottom: 8px;
-}
-
-.product-details .close-details-btn {
-    background-color: #ccc;
-    color: #333;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-    margin-top: 15px;
-}
-
-.product-details .close-details-btn:hover {
-    background-color: #bbb;
+    margin-top: 0;
+    font-size: smaller;
 }
 .new-arrivals .product-list {
     display: flex;
     overflow-x: auto;
     -webkit-overflow-scrolling: auto;
-    padding-bottom: 100px; /* Increase this value as needed */
+    padding-bottom: 100px; 
     margin-bottom: 20px;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -397,8 +409,71 @@ nav ul li a:hover {
 .about-us p {
     color: #030000;
 }
+#navMenu {
+    display: none; /* Hide by default on smaller screens */
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
 
+#navMenu ul {
+    flex-direction: column; /* Stack items on smaller screens */
+    align-items: center;
+}
 
+#navMenu ul li {
+    margin-left: 0;
+    margin-bottom: 10px;
+}
+
+#navMenu ul li:last-child {
+    margin-bottom: 0;
+}
+
+.hamburger {
+    display: block; /* Show hamburger button on smaller screens */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Hide hamburger on larger screens if the full nav is visible */
+@media (min-width: 768px) { /* Adjust breakpoint as needed */
+    .hamburger {
+        display: none;
+    }
+    #navMenu {
+        display: flex; /* Show full nav on larger screens */
+        width: auto;
+        margin-top: 0;
+    }
+    #navMenu ul {
+        flex-direction: row;
+        align-items: initial;
+    }
+    #navMenu ul li {
+        margin-left: 20px;
+        margin-bottom: 0;
+    }
+    #navMenu ul li:first-child {
+        margin-left: 0;
+    }
+}
+
+ #navMenu.show {
+        display: block;
+        z-index: 1002;
+        position: fixed;
+        top: 60px; /* Adjust this value if your header is taller or shorter */
+        left: 0;
+        width: 100%;
+        background-color: #333; /* Ensure a background color */
+        padding: 10px 0; /* Add some vertical padding */
+    }
+/*product css*/
 /* Category Selector */
 .category-selector {
     background-color: #fff;
@@ -449,8 +524,8 @@ nav ul li a:hover {
     border-radius: 5px;
     margin-bottom: 10px;
     width: 100%;
-    height: 150px; /* Adjust as needed */
-    object-fit: cover; /* Maintain image aspect ratio */
+    height: 150px; 
+    object-fit: cover; 
 }
 
 .product-item h3 {
@@ -524,7 +599,7 @@ nav ul li a:hover {
     display: grid; /* Or block, depending on your layout */
 }
 
-/* Style the cart notification */
+/* Cart Notification */
 #cart-notification {
     position: fixed;
     top: 20px;
@@ -535,10 +610,17 @@ nav ul li a:hover {
     padding: 10px 20px;
     border-radius: 5px;
     z-index: 1000;
-    display: none; /* Initially hidden */
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Style the cart container */
+#cart-notification.show {
+    display: block;
+    opacity: 1;
+}
+
+/* Cart Container */
 #cart-container {
     position: fixed;
     top: 50%;
@@ -550,9 +632,19 @@ nav ul li a:hover {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1001;
-    display: none; /* Initially hidden */
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    width: 90%;
+    max-width: 400px;
 }
 
+#cart-container.show {
+    display: block;
+    opacity: 1;
+}
+
+/* Cart Items List */
 #cart-items {
     list-style: none;
     padding: 0;
@@ -565,152 +657,142 @@ nav ul li a:hover {
     justify-content: space-between;
 }
 
+/* Remove Button */
 #cart-items li button {
     padding: 5px 10px;
     margin-left: 5px;
     cursor: pointer;
-}
-
-/* Style the open/close cart buttons */
-#open-cart-button, #close-cart-btn {
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-#open-cart-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #007bff;
+    background-color: #f44336;
+    border: none;
     color: white;
-    border: none;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
 }
 
-#close-cart-btn {
-    background-color: #ccc;
-    color: #333;
-    border: none;
-    margin-top: 15px;
+#cart-items li button:hover {
+    background-color: #d32f2f;
 }
 
-#open-cart-button:hover, #close-cart-btn:hover {
-    opacity: 0.8;
-}
-/* Contact Form (contact.html) */
-.contact-form {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+/* Focus for Accessibility */
+button:focus {
+    outline: 2px solid #2196F3;
+    outline-offset: 2px;
 }
 
-.contact-form h2 {
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 15px;
-}
 
-.contact-form p {
-    color: #555;
-    margin-bottom: 20px;
+/* Contact Us Section */
+.contact-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-
 .contact-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
+  display: block;
+  margin-top: 1rem;
 }
-
-.contact-form input[type="text"],
-.contact-form input[type="email"],
+.contact-form input,
 .contact-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 1rem;
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
-
-.contact-form textarea {
-    resize: vertical;
+.button-group {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
 }
-
-.contact-form button[type="submit"] {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease;
+.submit-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
-
-.contact-form button[type="submit"]:hover {
-    background-color: #1e7e34;
+.submit-btn {
+  background: #0070f3;
+  color: #fff;
 }
-
-.contact-form .form-message {
-    margin-top: 15px;
-    padding: 10px;
-    border-radius: 5px;
-    font-weight: bold;
+.cancel-btn {
+  background: #e0e0e0;
 }
-
-.contact-form .form-message.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+.thank-you-message {
+  text-align: center;
+  margin-top: 2rem;
 }
-
-.contact-form .form-message.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-/* Contact Info (contact.html) */
-.contact-info {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.contact-info h3 {
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 15px;
-}
-
-.contact-info p {
-    color: #555;
-    margin-bottom: 10px;
-}
-
-/* Footer */
+/* Footer Styles */
 footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1rem 0;
-    position: sticky; /* Or fixed, depending on your layout preference */
-    bottom: 0;
-    width: 100%;
-    position: relative;
+    background-color: #333; /* Dark background color */
+    color: #f4f4f4; /* Light text color */
+    padding: 20px 0;
+    text-align: center; /* Default text alignment */
+    font-size: 0.9rem;
 }
 
-footer p {
-    margin: 0;
-    font-size: 0.9rem;
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Spacing between sections */
+    max-width: 1200px; /* Limit width of content */
+    margin: 0 auto; /* Center the content */
+    padding: 0 20px; /* Add some horizontal padding */
+}
+
+.contact-details {
+    text-align: center;
+}
+
+.contact-details h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #eee;
+    font-size: 1.2rem;
+}
+
+.contact-details p {
+    margin-bottom: 5px;
+}
+
+.contact-details a {
+    color: #007bff; /* Link color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-details a:hover {
+    color: #0056b3; /* Darker link color on hover */
+    text-decoration: underline;
+}
+
+.copyright {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #555; /* Separator line */
+}
+
+/* Responsive adjustments (optional) */
+@media (min-width: 768px) {
+    .footer-info {
+        flex-direction: row;
+        justify-content: space-around;
+        text-align: left;
+    }
+
+    .contact-details {
+        text-align: left;
+    }
+
+    .copyright {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+    }
 }
 
 /* === Responsive Styles === */
@@ -731,11 +813,6 @@ footer p {
         font-size: 1.25rem;
     }
 
-    #main-nav {
-        display: none !important; /* Hide main nav on mobile */
-        width: 100%;
-    }
-
     #main-nav ul {
         flex-direction: column;
         align-items: center;
@@ -750,13 +827,6 @@ footer p {
     #main-nav a {
         display: block;
         padding: 0.75rem 0;
-    }
-
-    #mobile-menu-button {
-        display: block !important; /* Show hamburger button */
-        top: 10px;
-        right: 10px;
-        font-size: 1.25rem;
     }
 
     .category-selector h2 {
@@ -799,6 +869,7 @@ footer p {
 @media (min-width: 577px) and (max-width: 768px) {
     header {
         padding: 0.75rem 1.5rem;
+        margin-bottom: 20px;
     }
 
     .logo h1 {
@@ -811,12 +882,6 @@ footer p {
 
     #main-nav li {
         margin-left: 0.75rem;
-    }
-
-    #mobile-menu-button {
-        display: block !important;
-        top: 15px;
-        right: 15px;
     }
 
     .product-list {
@@ -838,12 +903,14 @@ footer p {
         right: 50px;
         font-size: 0.9rem;
     }
+
 }
 
 /* Large devices (desktops, 769px to 1200px) */
 @media (min-width: 769px) and (max-width: 1200px) {
     header {
         padding: 1rem 2rem;
+        margin-bottom: 20px; 
     }
 
     .logo h1 {

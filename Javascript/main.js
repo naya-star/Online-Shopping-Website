@@ -1,3 +1,5 @@
+console.log("JavaScript is connected!");
+
 // index.html - Full-Width Fading Slideshow for Flash Sale
 let slideIndex = 0;
 showSlides();
@@ -12,53 +14,38 @@ function showSlides() {
     slides[slideIndex-1].style.display = "block";
     setTimeout(showSlides, 3000); // Change image every 3 seconds
 }
-// index.html - Horizontal New Arrivals Carousel
-const arrivalsCarousel = document.querySelector('.new-arrivals .product-list');
-const prevArrivalsButton = document.querySelector('.prev-arrivals');
-const nextArrivalsButton = document.querySelector('.next-arrivals');
-
-if (arrivalsCarousel && prevArrivalsButton && nextArrivalsButton) {
-    const itemWidthWithMargin = 220; // Adjust this value to match item width + margin-right in CSS
-
-    prevArrivalsButton.addEventListener('click', () => {
-        arrivalsCarousel.scrollLeft -= itemWidthWithMargin;
-    });
-
-    nextArrivalsButton.addEventListener('click', () => {
-        arrivalsCarousel.scrollLeft += itemWidthWithMargin;
-    });
-}
-document.addEventListener('DOMContentLoaded', () => {
-    const productItems = document.querySelectorAll('.product-item');
-    productItems.forEach(item => {
-        item.style.display = 'grid'; // Or 'block', whichever you are using in your CSS
-    });
-
-    const categorySelect = document.getElementById('categorySelect');
-    if (categorySelect) {
-        categorySelect.addEventListener('change', () => {
-            const selectedCategory = categorySelect.value;
-            filterProducts(selectedCategory);
-        });
-    }
-});
 // index.html - new arrivals view details
 document.addEventListener('DOMContentLoaded', function() {
     const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
+    const allProductDetails = document.querySelectorAll('.product-details'); // Select all details
+    const productList = document.querySelector('.product-list');
+    const prevButton = document.querySelector('.prev-arrivals');
+    const nextButton = document.querySelector('.next-arrivals');
 
+    // Functionality for "View Details" buttons
     viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(event) {
+            event.stopPropagation();
             const productItem = this.closest('.product-item');
-            const details = productItem.querySelector('.product-details');
-            if (details) {
-                details.style.display = details.style.display === 'none' ? 'block' : 'none';
+            const targetDetails = productItem.querySelector('.product-details');
+
+            allProductDetails.forEach(details => {
+                if (details !== targetDetails) {
+                    details.style.display = 'none';
+                }
+            });
+
+            if (targetDetails) {
+                targetDetails.style.display = targetDetails.style.display === 'none' ? 'block' : 'none';
             }
         });
     });
 
+    // Functionality for "Close Details" buttons
     const closeDetailsButtons = document.querySelectorAll('.close-details-btn');
     closeDetailsButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(event) {
+            event.stopPropagation();
             const productItem = this.closest('.product-item');
             const details = productItem.querySelector('.product-details');
             if (details) {
@@ -66,7 +53,31 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Functionality for the previous arrow button
+    if (prevButton && productList) {
+        prevButton.addEventListener('click', function() {
+            productList.scrollLeft -= 320; // Adjust scroll amount as needed
+        });
+    }
+
+    // Functionality for the next arrow button
+    if (nextButton && productList) {
+        nextButton.addEventListener('click', function() {
+            productList.scrollLeft += 320; // Adjust scroll amount as needed
+        });
+    }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const hamburger = document.getElementById('hamburgerBtn');
+  const nav = document.getElementById('navMenu');
+
+  hamburger.addEventListener('click', function () {
+    nav.classList.toggle('show');
+  });
+});
+
 // product.html - Filter Products by Category
 function filterProducts(category) {
     const productItems = document.querySelectorAll('.product-item');
@@ -79,119 +90,97 @@ function filterProducts(category) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-    const cartNotification = document.getElementById('cart-notification');
-    const cartContainer = document.getElementById('cart-container');
-    const cartItemsList = document.getElementById('cart-items');
-    const openCartButton = document.getElementById('open-cart-button');
-    const closeCartButton = document.getElementById('close-cart-btn');
+// Grab the DOM elements
+const cartNotification = document.getElementById('cart-notification');
+const cartContainer = document.getElementById('cart-container');
+const cartItems = document.getElementById('cart-items');
+const openCartButton = document.getElementById('open-cart-button');
+const closeCartButton = document.getElementById('close-cart-btn');
 
-    console.log("DOM is fully loaded and parsed"); // Add this line
+// Show the cart
+function showCart() {
+    cartContainer.style.display = 'block';
+}
 
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            console.log("Add to Cart button clicked!"); // Add this line
-            const productId = this.dataset.productId;
-            const productName = this.dataset.productName;
+// Hide the cart
+function hideCart() {
+    cartContainer.style.display = 'none';
+}
 
-            const existingItem = cart.find(item => item.id === productId);
+// Show notification
+function showNotification(message) {
+    cartNotification.textContent = message;
+    cartNotification.style.display = 'block';
 
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                cart.push({ id: productId, name: productName, quantity: 1 });
-            }
+    setTimeout(() => {
+        cartNotification.style.display = 'none';
+    }, 2000); // Hide after 2 seconds
+}
 
-            updateCartDisplay();
-            showNotification(`${productName} added to cart!`);
-        });
-    });
+// Add item to cart
+function addToCart(productId, productName) {
+    const li = document.createElement('li');
+    li.innerHTML = `
+        ${productName}
+        <button onclick="removeFromCart(this)">Remove</button>
+    `;
+    cartItems.appendChild(li);
+    showNotification(`${productName} added to cart`);
+}
 
-    openCartButton.addEventListener('click', () => {
-        console.log("Open Cart button clicked!"); // Add this line
-        cartContainer.style.display = 'block';
-    });
+// Remove item from cart
+function removeFromCart(button) {
+    const li = button.parentElement;
+    li.remove();
+    showNotification(`Item removed from cart`);
+}
 
-    closeCartButton.addEventListener('click', () => {
-        cartContainer.style.display = 'none';
-    });
-
-    let cart = []; // Array to store cart items (each item could be an object with id, name, quantity)
-
-    function showNotification(message) {
-        cartNotification.textContent = message;
-        cartNotification.style.display = 'block';
-        setTimeout(() => {
-            cartNotification.style.display = 'none';
-        }, 3000); // Hide after 3 seconds
-    }
-
-    function updateCartDisplay() {
-        cartItemsList.innerHTML = ''; // Clear the current cart display
-        cart.forEach(item => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${item.name} (Quantity: ${item.quantity})`;
-
-            const incrementButton = document.createElement('button');
-            incrementButton.textContent = '+';
-            incrementButton.addEventListener('click', () => {
-                item.quantity++;
-                updateCartDisplay();
-            });
-
-            const decrementButton = document.createElement('button');
-            decrementButton.textContent = '-';
-            decrementButton.addEventListener('click', () => {
-                if (item.quantity > 1) {
-                    item.quantity--;
-                    updateCartDisplay();
-                } else {
-                    // Optionally remove the item if quantity is 1 and decrement is clicked
-                    cart = cart.filter(cartItem => cartItem.id !== item.id);
-                    updateCartDisplay();
-                }
-            });
-
-            listItem.appendChild(document.createTextNode(' ')); // Add some space
-            listItem.appendChild(decrementButton);
-            listItem.appendChild(document.createTextNode(' '));
-            listItem.appendChild(incrementButton);
-
-            cartItemsList.appendChild(listItem);
-        });
-    }
-
-    // Optional: Initialize cart from local storage on page load
-    const storedCart = localStorage.getItem('shoppingCart');
-    if (storedCart) {
-        cart = JSON.parse(storedCart);
-        updateCartDisplay();
-    }
-
-    // Optional: Save cart to local storage whenever it changes
-    window.addEventListener('beforeunload', () => {
-        localStorage.setItem('shoppingCart', JSON.stringify(cart));
+// Attach event listeners to all Add to Cart buttons
+document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        const productId = this.getAttribute('data-product-id');
+        const productName = this.getAttribute('data-product-name');
+        addToCart(productId, productName);
     });
 });
-// contact.html - Basic Form Submission Feedback
-const contactForm = document.getElementById('contactForm');
-const formMessage = document.getElementById('formMessage');
 
-if (contactForm && formMessage) {
-    contactForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
+// Open and close cart button functionality
+openCartButton.addEventListener('click', showCart);
+closeCartButton.addEventListener('click', hideCart);
 
-        // Simulate form submission (replace with actual backend logic)
-        formMessage.textContent = 'Sending message...';
-        setTimeout(() => {
-            formMessage.textContent = 'Message sent successfully!';
-            formMessage.classList.add('success'); // You might want to add a success class in CSS
-            contactForm.reset();
-            setTimeout(() => {
-                formMessage.textContent = '';
-                formMessage.classList.remove('success');
-            }, 3000); // Clear message after 3 seconds
-        }, 1500); // Simulate a 1.5-second sending time
-    });
-}
+// Hide cart and notification by default on load
+window.addEventListener('DOMContentLoaded', () => {
+    cartContainer.style.display = 'none';
+    cartNotification.style.display = 'none';
+});
+
+
+// contact.html - Form Submission
+window.addEventListener('load', function() {
+    const welcomeText = document.querySelector('.welcome-text');
+    
+    // Add the 'trigger-scale' class to trigger the scaling inward (shrink effect) on page load
+    welcomeText.classList.add('trigger-scale');
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    const thankYouMessage = document.getElementById('thank-you-message');
+
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default Netlify form handling
+
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(new FormData(form)).toString(),
+            })
+            .then(() => {
+                form.style.display = 'none'; // Hide the form
+                thankYouMessage.style.display = 'block'; // Show the thank you message
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    }
+});
