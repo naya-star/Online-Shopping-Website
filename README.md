@@ -22,6 +22,7 @@ A responsive and user-friendly online shopping website featuring flash sales, ne
 - **Smooth User Experience:** Scrollable product lists and visual animations.
 
 ---
+View Live site on https://karibushoppingwebsite.netlify.app/
 
 ## Installation
 
