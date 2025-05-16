@@ -1,4 +1,4 @@
-# Online Shopping Site
+# Karibu Shopping Site
 
 A responsive and user-friendly online shopping website featuring flash sales, new arrivals, product filtering, and a dynamic shopping cart. Built with vanilla JavaScript, HTML5, and CSS3 to deliver seamless user experiences across devices.
 
