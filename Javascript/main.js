@@ -154,15 +154,7 @@ window.addEventListener('DOMContentLoaded', () => {
     cartNotification.style.display = 'none';
 });
 
-
-// contact.html - Form Submission
-window.addEventListener('load', function() {
-    const welcomeText = document.querySelector('.welcome-text');
-    
-    // Add the 'trigger-scale' class to trigger the scaling inward (shrink effect) on page load
-    welcomeText.classList.add('trigger-scale');
-});
-
+// contact.html - Form Submission to Netlify
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('contactForm');
     const thankYouMessage = document.getElementById('thank-you-message');
